@@ -139,7 +139,8 @@ diff (Set dict1) (Set dict2) =
     Set (Dict.diff dict1 dict2)
 
 
-{-| Convert a set into a list, sorted from lowest to highest.
+{-| Convert a set into a list, with values in the order that they were
+inserted with the most recently inserted value at the head of the list.
 -}
 toList : Set a -> List a
 toList (Set dict) =
@@ -153,14 +154,16 @@ fromList list =
     List.foldr insert empty list
 
 
-{-| Fold over the values in a set, in order from lowest to highest.
+{-| Fold over the values in a set, in order from most recently inserted
+to least recently inserted.
 -}
 foldl : (a -> b -> b) -> b -> Set a -> b
 foldl func initialState (Set dict) =
     Dict.foldl (\key _ state -> func key state) initialState dict
 
 
-{-| Fold over the values in a set, in order from highest to lowest.
+{-| Fold over the values in a set, in order from least recently inserted
+to most recently inserted.
 -}
 foldr : (a -> b -> b) -> b -> Set a -> b
 foldr func initialState (Set dict) =
